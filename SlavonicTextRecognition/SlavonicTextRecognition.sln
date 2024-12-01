@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlavonicTextRecognition.Server", "SlavonicTextRecognition.Server\SlavonicTextRecognition.Server.csproj", "{9DD9C7C2-82F0-4B5C-8A0B-F8F27897F0D3}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "slavonictextrecognition.client", "slavonictextrecognition.client\slavonictextrecognition.client.esproj", "{4F9FCE88-2CC1-4AB6-944B-217555891FE3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DD9C7C2-82F0-4B5C-8A0B-F8F27897F0D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DD9C7C2-82F0-4B5C-8A0B-F8F27897F0D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DD9C7C2-82F0-4B5C-8A0B-F8F27897F0D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DD9C7C2-82F0-4B5C-8A0B-F8F27897F0D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F9FCE88-2CC1-4AB6-944B-217555891FE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F9FCE88-2CC1-4AB6-944B-217555891FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F9FCE88-2CC1-4AB6-944B-217555891FE3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4F9FCE88-2CC1-4AB6-944B-217555891FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F9FCE88-2CC1-4AB6-944B-217555891FE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F9FCE88-2CC1-4AB6-944B-217555891FE3}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {08B0DE50-9271-403D-883B-6D118C9AD107}
+	EndGlobalSection
+EndGlobal
