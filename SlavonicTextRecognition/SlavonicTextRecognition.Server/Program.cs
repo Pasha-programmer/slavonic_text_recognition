@@ -1,3 +1,5 @@
+using SlavonicTextRecognition.Server;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,9 +15,7 @@ app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
-app.MapControllers();
+app.UseEndpoints();
 
 app.MapFallbackToFile("/index.html");
 
