@@ -1,10 +1,14 @@
-using SlavonicTextRecognition.Server;
+using SlavonicTextRecognition.Server.Contract;
+using SlavonicTextRecognition.Server.EndPoints;
+using SlavonicTextRecognition.Server.Python;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddSingleton<IPythonApplication, PythonApplication>();
 
 var app = builder.Build();
 
@@ -15,7 +19,7 @@ app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
-app.UseEndpoints();
+EndPoints.Init(app);
 
 app.MapFallbackToFile("/index.html");
 
