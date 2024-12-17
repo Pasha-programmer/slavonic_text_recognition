@@ -29,26 +29,27 @@ namespace SlavonicTextRecognition.Server.EndPoints
                     await stream.CopyToAsync(fileStream);
                 };
 
-                var resultFile = pythonApplication.Run(directoryPath, resultDirectoryPath);
+                var resultFile = pythonApplication.Run(directoryPath, resultDirectoryPath)?.Trim();
 
-                var csvParserOptions = new CsvParserOptions(true, '\t');
-                var csvParser = new CsvParser<Prediction>(csvParserOptions, new CsvPredictionMapping());
-                var result = csvParser
-                             .ReadFromFile(resultFile.Trim(), Encoding.UTF32)
-                             .ToArray();
+                if (string.IsNullOrWhiteSpace(resultFile))
+                    return Results.Problem();
+
+                var lines = File.ReadAllLines(resultFile, Encoding.Default).Skip(1);
+
+                var lineWords = lines.First()
+                    .Split('\t');
+
+                var prediction = new Prediction
+                {
+                    FileName = lineWords[0],
+                    PredictionSize = lineWords[1],
+                };
 
                 Directory.Delete(directoryPath, true);
                 Directory.Delete(resultDirectoryPath, true);
 
-                return result.Select(x => x.Result).ToArray();
+                return Results.Ok(prediction);
             }).DisableAntiforgery();
-
-            //endpointRouteBuilder.MapGet("api/process", async (
-            //    [FromServices] IPythonApplication pythonApplication,
-            //    string a, string b) =>
-            //{
-            //    return pythonApplication.Run(a, b);
-            //}).DisableAntiforgery();
         }
     }
 }

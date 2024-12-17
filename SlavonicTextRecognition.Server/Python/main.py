@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
     preds = prediction(model, imagesDirectory, char2idx, idx2char)
 
-    f = open(resultFile, 'w')
+    f = open(resultFile, 'w', encoding="utf-8")
     f.write('filename\tprediction\n')
     for item in preds.items():
         f.write(item[0]+'\t'+item[1]+'\n')
