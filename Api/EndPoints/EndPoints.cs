@@ -7,7 +7,7 @@ public static class EndPoints
 {
     public static void Init(IEndpointRouteBuilder endpointRouteBuilder)
     {
-        endpointRouteBuilder.MapGet("api/process", async (
+        endpointRouteBuilder.MapPost("api/documents/process/upload", async (
             [FromServices] IProcessFilesService processFilesService,
             [FromForm] IFormFile image) =>
         {

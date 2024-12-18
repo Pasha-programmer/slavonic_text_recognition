@@ -32,7 +32,7 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Documents");
+                    b.ToTable("Documents", (string)null);
                 });
 
             modelBuilder.Entity("Database.Prediction", b =>
@@ -50,7 +50,7 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Predictions");
+                    b.ToTable("Predictions", (string)null);
                 });
 
             modelBuilder.Entity("Database.TaskProcess", b =>
@@ -67,7 +67,7 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("Tasks", (string)null);
                 });
 #pragma warning restore 612, 618
         }
