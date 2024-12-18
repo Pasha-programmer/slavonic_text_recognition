@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "SlavonicTextRecognit
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Spa", "slavonictextrecognition.client\Spa.esproj", "{4F9FCE88-2CC1-4AB6-944B-217555891FE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{80F550E1-E7DB-485C-9F24-CBCDB1F15DA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{80F550E1-E7DB-485C-9F24-CBCDB1F15DA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{0B8A47CF-937D-4D15-96CF-20A1C30F9963}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{80F550E1-E7DB-485C-9F24-CBCDB1F15DA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80F550E1-E7DB-485C-9F24-CBCDB1F15DA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80F550E1-E7DB-485C-9F24-CBCDB1F15DA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B8A47CF-937D-4D15-96CF-20A1C30F9963}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B8A47CF-937D-4D15-96CF-20A1C30F9963}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B8A47CF-937D-4D15-96CF-20A1C30F9963}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B8A47CF-937D-4D15-96CF-20A1C30F9963}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

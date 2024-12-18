@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Infrastructure.Services;
 
-public class PredicateImages : IPythonApplication
+public class PredicateImagesService : IPredicateImagesService
 {
     public string? Run(params string[] agrs)
     {

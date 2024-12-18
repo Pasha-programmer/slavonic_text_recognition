@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Interfaces;
 
-public interface IPythonApplication
+public interface IPredicateImagesService
 {
     string? Run(params string[] agrs);
 }
