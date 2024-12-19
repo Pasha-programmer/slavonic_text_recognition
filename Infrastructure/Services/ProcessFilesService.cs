@@ -14,7 +14,7 @@ public class ProcessFilesService(
 {
     public async Task<bool> StartRecognizeWord(Uri directoryName)
     {
-        var directoryNameString = directoryName.ToString();
+        var directoryNameString = directoryName.AbsolutePath;
 
         var processFiles = Directory.GetFiles(directoryNameString);
 
@@ -41,9 +41,7 @@ public class ProcessFilesService(
             documents.Add(fileName, documentId);
         }
 
-        var resultDirectoryPath = Path.Combine(Path.GetTempPath(), DateTime.Now.ToString() + "\\");
-
-        var resultFile = pythonApplication.Run(directoryNameString, resultDirectoryPath)?.Trim();
+        var resultFile = (await pythonApplication.Run(directoryNameString, directoryNameString))?.Trim();
 
         // если не обработалось
         if (string.IsNullOrWhiteSpace(resultFile))
@@ -100,7 +98,7 @@ public class ProcessFilesService(
 
     internal async Task<IReadOnlyCollection<PredictionCsvDto>> GetPredictionWord(Uri resultProcessFile)
     {
-        var resultProcessFileString = resultProcessFile.ToString();
+        var resultProcessFileString = resultProcessFile.AbsolutePath;
 
         var lines = (await File.ReadAllLinesAsync(resultProcessFileString, Encoding.Default))
             .Skip(1);
@@ -113,7 +111,7 @@ public class ProcessFilesService(
             })
             .ToArray();
 
-        Directory.Delete(resultProcessFileString, true);
+        File.Delete(resultProcessFileString);
 
         return predictions;
     }

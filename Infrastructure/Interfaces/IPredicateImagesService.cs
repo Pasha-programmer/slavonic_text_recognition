@@ -2,5 +2,5 @@
 
 public interface IPredicateImagesService
 {
-    string? Run(params string[] agrs);
+    Task<string?> Run(params string[] agrs);
 }

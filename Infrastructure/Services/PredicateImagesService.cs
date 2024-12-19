@@ -1,17 +1,18 @@
 ﻿using Infrastructure.Interfaces;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text;
 
 namespace Infrastructure.Services;
 
 public class PredicateImagesService : IPredicateImagesService
 {
-    public string? Run(params string[] agrs)
+    public async Task<string?> Run(params string[] agrs)
     {
         try
         {
             // Получение относительного пути к скрипту Python
-            var pythonScriptPath = FindPythonScript("Python", "main.py");
+            var pythonScriptPath = FindPythonScript("Infrastructure\\Services\\Python", "main.py");
 
             // Проверка наличия скрипта Python
             if (string.IsNullOrEmpty(pythonScriptPath) || !File.Exists(pythonScriptPath))
@@ -21,7 +22,7 @@ public class PredicateImagesService : IPredicateImagesService
             }
 
             // Путь к интерпретатору Python в виртуальном окружении
-            var pythonInterpreterPath = FindPythonInterpreter("Python", "myenv", "Scripts", "python.exe");
+            var pythonInterpreterPath = FindPythonInterpreter("Infrastructure\\Services\\Python", "myenv", "Scripts", "python.exe");
 
             // Проверка наличия интерпретатора Python
             if (string.IsNullOrEmpty(pythonInterpreterPath) || !File.Exists(pythonInterpreterPath))
@@ -42,29 +43,37 @@ public class PredicateImagesService : IPredicateImagesService
                 CreateNoWindow = true,
             };
 
+            var result = new StringBuilder(4500);
+            var error = new StringBuilder(4500);
+
+            // Запустить процесс открытия файла с логгированием, чтобы отследить состояние
             using var process = Process.Start(start)
                 ?? throw new Exception($"Процесс пустой: {start}");
 
-            using var reader = process.StandardOutput;
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
 
-            var result = reader.ReadToEnd();
+            process.OutputDataReceived += (s, e) =>
+            {
+                if (e.Data != null)
+                    result.AppendLine(e.Data);
+            };
+
+            process.ErrorDataReceived += (s, e) =>
+            {
+                if (e.Data != null)
+                    error.AppendLine(e.Data);
+            };
+
+            await process.WaitForExitAsync();
 
             Console.WriteLine($"Результат: {result}");
 
-            using var errorReader = process.StandardError;
-
-            var error = errorReader.ReadToEnd();
-            if (!string.IsNullOrEmpty(error))
-            {
-                Console.WriteLine($"Ошибка: {error}");
-            }
-
-            process.WaitForExit();
             var exitCode = process.ExitCode;
 
-            Console.WriteLine($"Процесс завершился с кодом: {exitCode}");
+            Console.WriteLine($"Процесс завершился с кодом: {exitCode} error: {error.ToString()}");
 
-            return result;
+            return result.ToString();
         }
         catch (Exception ex)
         {

@@ -9,16 +9,15 @@ public static class EndPoints
     {
         endpointRouteBuilder.MapPost("api/documents/process/upload", async (
             [FromServices] IProcessFilesService processFilesService,
-            [FromForm] IFormFile image) =>
+            [FromForm] IFormFile images) =>
         {
-            var directoryPath = new Uri(Path.Combine(Path.GetTempPath(), "input\\"));
-            var resultDirectoryPath = new Uri(Path.Combine(Path.GetTempPath(), "prediction\\"));
+            var directoryPath = new Uri(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + "\\"));
 
-            Directory.CreateDirectory(directoryPath.ToString());
+            Directory.CreateDirectory(directoryPath.AbsolutePath);
 
-            var tempFile = Path.Combine(directoryPath.ToString(), image.FileName.Replace(' ', '_'));
+            var tempFile = Path.Combine(directoryPath.AbsolutePath, images.FileName.Replace(' ', '_'));
 
-            await using (var stream = image.OpenReadStream())
+            await using (var stream = images.OpenReadStream())
             await using (var fileStream = new FileStream(tempFile, FileMode.Create))
                 await stream.CopyToAsync(fileStream);
 

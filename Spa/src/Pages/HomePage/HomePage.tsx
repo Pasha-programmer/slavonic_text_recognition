@@ -1,4 +1,3 @@
-import { FileUploader } from 'react-drag-drop-files';
 import { useState } from 'react';
 import { Box, Button, Stack, Typography } from '@mui/joy';
 import { post } from '../../Services/ApiClient';
@@ -16,8 +15,7 @@ export default function HomePage(){
     const onUpload = () => {
 
         const formData = new FormData()
-        debugger
-        files.forEach((file) => formData.append("image", file))
+        files.forEach((file) => formData.append("images", file))
         
         post('api/documents/process/upload', formData)
     }
@@ -25,18 +23,25 @@ export default function HomePage(){
     return(
         <>
             <Box className='drag-n-drop' >
-                <FileUploader 
+                {/* <FileUploader 
                     onFilesChange={handleChange} 
                     name="files" 
                     label="Выберите или перенесите файлы"
                     types={fileTypes} 
                     multiFile={true}
-                    />
+                    /> */}
 
                 <FileUpload
                     onFilesChange={handleChange} 
                     multiFile
-                    title="Выберите или перенесите файлы"
+                    title={null}
+                    header="Перенесите"
+                    leftLabel="или"
+                    buttonLabel="выберите"
+                    rightLabel="файлы"
+                    buttonRemoveLabel="Удалить все"
+                    acceptedType={'image/*'}
+                    allowedExtensions={fileTypes}
                 />
             </Box>
 
