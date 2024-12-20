@@ -17,6 +17,7 @@ public class DocumentDirectory(
         {
             FileName = model.FileName,
             FileBlob = model.FileBlob,
+            CreateAt = DateTime.Now,
         };
 
         var entity = await context.AddAsync(document);

@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { Box, Button, Stack, Typography } from '@mui/joy';
-import { post } from '../../Services/ApiClient';
+import { post, get } from '../../Services/ApiClient';
 import FileUpload from "react-mui-fileuploader"
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { endOfToday, startOfToday } from 'date-fns';
+import Table from '@mui/joy/Table';
 
 export default function HomePage(){
 
@@ -10,27 +13,43 @@ export default function HomePage(){
         setFiles([...files]);
     };
 
+    const queryClient = useQueryClient();
+
+    const upload = useMutation({
+        mutationKey: ['api/documents/process/upload'],
+        mutationFn: (formData: FormData) => post('api/documents/process/upload', formData),
+        onSuccess: () => {
+            debugger
+            queryClient.invalidateQueries({
+                queryKey: ['api/documents']
+            })
+            setFiles([]);
+        }
+    }, queryClient)
+
+    const { data } = useQuery<any[]>({
+        queryKey: ['api/documents', startOfToday(), endOfToday()],
+        queryFn: () => get('api/documents', {
+            params: {
+                fromDate: startOfToday(),
+                toDate: endOfToday(),
+            }
+        })
+    }, queryClient)
+
     const fileTypes = ["JPG", "PNG", "GIF"];
 
-    const onUpload = () => {
+    const onUpload = async () => {
 
         const formData = new FormData()
         files.forEach((file) => formData.append("images", file))
-        
-        post('api/documents/process/upload', formData)
+
+        upload.mutate(formData)
     }
 
     return(
         <>
             <Box className='drag-n-drop' >
-                {/* <FileUploader 
-                    onFilesChange={handleChange} 
-                    name="files" 
-                    label="Выберите или перенесите файлы"
-                    types={fileTypes} 
-                    multiFile={true}
-                    /> */}
-
                 <FileUpload
                     onFilesChange={handleChange} 
                     multiFile
@@ -43,16 +62,37 @@ export default function HomePage(){
                     acceptedType={'image/*'}
                     allowedExtensions={fileTypes}
                 />
+                <div className='actions'>
+
+                    <Button onClick={onUpload}>
+                        Обработать
+                    </Button>
+                </div>
             </Box>
 
-            <Button onClick={onUpload}>
-                Обработать
-            </Button>
-
             <Box sx={{border: '1px solid #d0dae3', borderRadius: 8, mt: '10px'}}>
-                <Typography px={1}>История</Typography>
                 <Stack spacing={2}>
-                    
+                    {data &&
+                        <Table aria-label="basic table" hoverRow>
+                            <caption>История</caption>
+                            <thead>
+                                <tr>
+                                    <th>Файл</th>
+                                    <th>Текст</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.map((row) => (
+                                        <tr key={row.documentId}>
+                                            <td>{row.fileName}</td>
+                                            <td>{row.content}</td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </Table>
+                    }
                 </Stack>
             </Box>
         </>

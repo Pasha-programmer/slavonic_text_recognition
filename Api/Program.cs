@@ -17,6 +17,7 @@ builder.Services.AddScoped<IProcessFilesService, ProcessFilesService>();
 builder.Services.AddScoped<IDocumentDirectory, DocumentDirectory>();
 builder.Services.AddScoped<IPredictionDirectory, PredictionDirectory>();
 builder.Services.AddScoped<ITaskOperationDirectory, TaskOperationDirectory>();
+builder.Services.AddScoped<IFilePredicationService, FilePredicationService>();
 
 builder.Services.AddDbContextFactory<Context>(options =>
 {

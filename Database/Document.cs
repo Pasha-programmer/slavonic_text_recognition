@@ -6,5 +6,7 @@ public class Document
 
     public string FileName {  get; set; }
 
+    public DateTime CreateAt { get; set; }
+
     public byte[] FileBlob {  get; set; }
 }
