@@ -76,7 +76,10 @@ export default function HomePage(){
             </Box>
 
             <Camera
-                onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
+                onTakePhoto = { (dataUri: any) => { handleTakePhoto(dataUri); } }
+                idealFacingMode = {undefined}
+                imageType='jpg'
+                
                 />
 
             {(data?.length ?? 0) > 0 &&
