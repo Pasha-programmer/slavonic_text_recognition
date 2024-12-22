@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button } from '@mui/joy';
+import { Box, Button, Stack, Typography } from '@mui/joy';
 import { post, get } from '../../Services/ApiClient';
 import FileUpload from "react-mui-fileuploader"
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -7,8 +7,9 @@ import { endOfToday, startOfToday } from 'date-fns';
 import Table from '@mui/joy/Table';
 import Camera from 'react-html5-camera-photo';
 
-export default function HomePage(){
+export default function HomePage() {
 
+    const [openCamera, setCamersState] = useState(false)
     const [files, setFiles] = useState([]);
     const handleChange = (files: []) => {
         setFiles([...files]);
@@ -51,13 +52,44 @@ export default function HomePage(){
     const handleTakePhoto = (dataUri: string) => {
         // Do stuff with the photo...
         console.log(dataUri);
-      }
+    }
 
-    return(
+    const handleCameraError = (error: any) => {
+        console.log('handleCameraError', error);
+    }
+
+
+    return (
         <>
+            <Box sx={{display: 'flex', justifyContent: 'space-around'}}>
+                <Box className='paper-outlined' sx={{ borderRadius: '50%', mb: 1, }}>
+                    <Box className='camera-button'
+                        component={'a'}
+                        onClick={() => setCamersState(true)}
+                        >
+                        <Typography>
+                            Камера
+                        </Typography>
+                    </Box>
+                </Box>
+            </Box>
+
+            {openCamera &&
+                <Box className='paper-outlined' sx={{ mb: 1, }}>
+                    
+                        <Camera
+                            onTakePhoto={(dataUri: any) => { handleTakePhoto(dataUri); }}
+                            idealFacingMode={undefined}
+                            imageType='jpg'
+                            isFullscreen={true}
+                            onCameraError={handleCameraError}
+                        />
+                </Box>
+            }
+
             <Box className='drag-n-drop' >
                 <FileUpload
-                    onFilesChange={handleChange} 
+                    onFilesChange={handleChange}
                     multiFile
                     title={null}
                     header="Перенесите"
@@ -75,15 +107,8 @@ export default function HomePage(){
                 </div>
             </Box>
 
-            <Camera
-                onTakePhoto = { (dataUri: any) => { handleTakePhoto(dataUri); } }
-                idealFacingMode = {undefined}
-                imageType='jpg'
-                
-                />
-
             {(data?.length ?? 0) > 0 &&
-                <Box sx={{border: '1px solid #d0dae3', borderRadius: 8, mt: '10px'}}>
+                <Box sx={{ border: '1px solid #d0dae3', borderRadius: 8, mt: '10px' }}>
                     <Table aria-label="basic table" hoverRow>
                         <caption>История</caption>
                         <thead>
