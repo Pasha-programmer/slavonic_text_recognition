@@ -6,6 +6,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { endOfToday, startOfToday } from 'date-fns';
 import Table from '@mui/joy/Table';
 import Camera from 'react-html5-camera-photo';
+import 'react-html5-camera-photo/build/css/index.css'
+import { url } from 'inspector';
 
 export default function HomePage() {
 
@@ -50,8 +52,19 @@ export default function HomePage() {
     }
 
     const handleTakePhoto = (dataUri: string) => {
-        // Do stuff with the photo...
-        console.log(dataUri);
+
+        fetch(dataUri).then(r => {
+            
+            if(r.status != 200)
+                return;
+
+            const formData = new FormData()
+
+            r.blob().then(b =>{
+                formData.append('images', b, "camera_photo_" + Date.now())
+                upload.mutate(formData)
+            })
+        })
     }
 
     const handleCameraError = (error: any) => {
@@ -65,7 +78,7 @@ export default function HomePage() {
                 <Box className='paper-outlined' sx={{ borderRadius: '50%', mb: 1, }}>
                     <Box className='camera-button'
                         component={'a'}
-                        onClick={() => setCamersState(true)}
+                        onClick={() => setCamersState(!openCamera)}
                         >
                         <Typography>
                             Камера
@@ -81,7 +94,7 @@ export default function HomePage() {
                             onTakePhoto={(dataUri: any) => { handleTakePhoto(dataUri); }}
                             idealFacingMode={undefined}
                             imageType='jpg'
-                            isFullscreen={true}
+                            isFullscreen={false}
                             onCameraError={handleCameraError}
                         />
                 </Box>
