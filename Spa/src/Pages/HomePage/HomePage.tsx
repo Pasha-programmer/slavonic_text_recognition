@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Box, Button, Stack } from '@mui/joy';
+import { Box, Button } from '@mui/joy';
 import { post, get } from '../../Services/ApiClient';
 import FileUpload from "react-mui-fileuploader"
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { endOfToday, startOfToday } from 'date-fns';
 import Table from '@mui/joy/Table';
+import Camera from 'react-html5-camera-photo';
 
 export default function HomePage(){
 
@@ -47,6 +48,11 @@ export default function HomePage(){
         upload.mutate(formData)
     }
 
+    const handleTakePhoto = (dataUri: string) => {
+        // Do stuff with the photo...
+        console.log(dataUri);
+      }
+
     return(
         <>
             <Box className='drag-n-drop' >
@@ -68,6 +74,10 @@ export default function HomePage(){
                     </Button>
                 </div>
             </Box>
+
+            <Camera
+                onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
+                />
 
             {(data?.length ?? 0) > 0 &&
                 <Box sx={{border: '1px solid #d0dae3', borderRadius: 8, mt: '10px'}}>
