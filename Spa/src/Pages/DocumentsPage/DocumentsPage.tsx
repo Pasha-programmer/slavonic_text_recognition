@@ -16,7 +16,7 @@ export default function DocumentsPage(){
             <Stack spacing={2}>
                     {data &&
                         <Table aria-label="basic table" hoverRow>
-                            <caption>Все Документы</caption>
+                            <caption>Все документы</caption>
                             <thead>
                                 <tr>
                                     <th>Файл</th>

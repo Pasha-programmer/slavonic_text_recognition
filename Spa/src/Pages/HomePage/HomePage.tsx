@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, Stack, Typography } from '@mui/joy';
+import { Box, Button, Stack } from '@mui/joy';
 import { post, get } from '../../Services/ApiClient';
 import FileUpload from "react-mui-fileuploader"
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -63,38 +63,35 @@ export default function HomePage(){
                     allowedExtensions={fileTypes}
                 />
                 <div className='actions'>
-
                     <Button onClick={onUpload}>
                         Обработать
                     </Button>
                 </div>
             </Box>
 
-            <Box sx={{border: '1px solid #d0dae3', borderRadius: 8, mt: '10px'}}>
-                <Stack spacing={2}>
-                    {data &&
-                        <Table aria-label="basic table" hoverRow>
-                            <caption>История</caption>
-                            <thead>
-                                <tr>
-                                    <th>Файл</th>
-                                    <th>Текст</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    data.map((row) => (
-                                        <tr key={row.documentId}>
-                                            <td>{row.fileName}</td>
-                                            <td>{row.content}</td>
-                                        </tr>
-                                    ))
-                                }
-                            </tbody>
-                        </Table>
-                    }
-                </Stack>
-            </Box>
+            {(data?.length ?? 0) > 0 &&
+                <Box sx={{border: '1px solid #d0dae3', borderRadius: 8, mt: '10px'}}>
+                    <Table aria-label="basic table" hoverRow>
+                        <caption>История</caption>
+                        <thead>
+                            <tr>
+                                <th>Файл</th>
+                                <th>Текст</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                data!.map((row) => (
+                                    <tr key={row.documentId}>
+                                        <td>{row.fileName}</td>
+                                        <td>{row.content}</td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </Table>
+                </Box>
+            }
         </>
     )
 }
