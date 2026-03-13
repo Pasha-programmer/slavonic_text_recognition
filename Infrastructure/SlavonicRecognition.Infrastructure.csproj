@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Database\Database.csproj" />
+    <ProjectReference Include="..\Database\SlavonicRecognition.Database.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, Stack, Typography } from '@mui/joy';
+import { Box, Button, Typography } from '@mui/joy';
 import { post, get } from '../../Services/ApiClient';
 import FileUpload from "react-mui-fileuploader"
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -7,7 +7,6 @@ import { endOfToday, startOfToday } from 'date-fns';
 import Table from '@mui/joy/Table';
 import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css'
-import { url } from 'inspector';
 
 export default function HomePage() {
 

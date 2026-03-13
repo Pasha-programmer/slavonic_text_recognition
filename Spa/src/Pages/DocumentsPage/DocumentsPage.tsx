@@ -1,4 +1,4 @@
-import { Box, Stack, Table, Typography } from "@mui/joy";
+import { Box, Stack, Table } from "@mui/joy";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { get } from "../../Services/ApiClient";
 

@@ -13,7 +13,7 @@ export class DateOnly extends Date{
 
     readonly isDateOnly: boolean = true;
 
-    toJSON(key?: any): string {
+    toJSON(): string {
         return format(this, 'yyyy-MM-dd');
     };
 }
@@ -26,7 +26,7 @@ export class DateTimeOffset extends Date{
 
     readonly isDateTimeOffset: boolean = true;
 
-    toJSON(key?: any): string {
+    toJSON(): string {
         return formatISO(this);
     };
 } 
@@ -39,7 +39,7 @@ export class TimeOnly extends Date{
 
     readonly isTimeOnly: boolean = true;
 
-    toJSON(key?: any): string {
+    toJSON(): string {
         return format(this, 'HH:mm:ss.SSS');
     };
 } 
