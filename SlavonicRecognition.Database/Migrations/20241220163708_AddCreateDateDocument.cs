@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -8,6 +9,7 @@ namespace SlavonicRecognition.Database.Migrations
     /// <inheritdoc />
     public partial class AddCreateDateDocument : Migration
     {
+        
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {

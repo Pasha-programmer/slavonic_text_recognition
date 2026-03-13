@@ -1,6 +1,6 @@
-using Infrastructure.Interfaces;
-using Infrastructure.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
+using SlavonicRecognition.Infrastructure.Interfaces;
+using SlavonicRecognition.Infrastructure.Models.Enums;
 
 namespace SlavonicTextRecognition.Server.EndPoints;
 
